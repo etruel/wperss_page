@@ -17,5 +17,5 @@ First version of the plugin.
 
 1. Upload folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin via the Plugins menu.
-3. Insert '[datosevento]' as shortcode into content or widget.
+3. select options on Wordpress editing page screen.
 
