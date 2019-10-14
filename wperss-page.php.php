@@ -45,6 +45,8 @@ function rss_page_add_content ($content = '') {
 //	$current_filter = current_filter();
 	$mensaje = "";
 	$rss_page_feed_url = get_post_meta($post->ID, 'rss_page_feed_url', true);
+
+	
 	$rss_page_template = apply_filters('rss_page_get_itemtemplate', plugin_dir_url( __FILE__ ).'rss_item_tpl.html'); //get_post_meta($post->ID, 'rss_page_template', true);
 	if (isset($rss_page_feed_url) && !empty($rss_page_feed_url)) {
 		ob_start();
@@ -54,6 +56,8 @@ function rss_page_add_content ($content = '') {
 	}else{
 		$mensaje = $content; //apply_filters( 'the_content', $content );
 	}
+	
+	
 	return $mensaje;
 }
 
@@ -69,7 +73,7 @@ function rss_page_feed_url( $post ){
 	<input name="rss_page_feed_url" id="rss_page_feed_url" type="text" value="<?php echo $rss_page_feed_url; ?>" class="large-text" />
 	<?php _e('Leave empty to ignore this field.', 'wperss-page' ); ?>
 	</p>
-	<b><?php _e('How to display the feed content:',  WPeMatico :: TEXTDOMAIN ); ?></b><br />
+	<b><?php _e('How to display the feed content:',  'wperss-page') ?></b><br />
 	<label><input type="radio" name="howtoshow" <?php echo checked('the_content',$howtoshow,false); ?> value="the_content" /> <span style="background-color: lightblue; padding-left: 3px; padding-right: 3px;">get_the_content</span> <?php _e('Wordpress filter', 'wperss-page'); ?></label><br />
 	<label><input type="radio" name="howtoshow" <?php echo checked('page_template',$howtoshow,false); ?> value="page_template" /> 
 		<?php _e('RSS Page Template.', 'wperss-page'); ?><br /><?php _e('Must selected also on Page Attributes.', 'wperss-page'); ?></label><br />
@@ -96,9 +100,10 @@ function rss_page_feed_url_save($post_id){
     // check user permissions
     if ($post_type == 'page') {
 		$howtoshow = (isset($_POST["howtoshow"]) && !empty($_POST["howtoshow"]) ) ? $_POST["howtoshow"] : '';
-		update_post_meta($post_id, "howtoshow", $howtoshow ) or add_post_meta($post_id, "howtoshow", $howtoshow);
+
+		update_post_meta($post_id, "howtoshow", $howtoshow ) or add_post_meta($post_id, "howtoshow", $howtoshow, true);
 		$rss_page_feed_url = (isset($_POST["rss_page_feed_url"]) && !empty($_POST["rss_page_feed_url"]) ) ? $_POST["rss_page_feed_url"] : '';
-		update_post_meta($post_id, "rss_page_feed_url", $rss_page_feed_url ) or add_post_meta($post_id, "rss_page_feed_url", $rss_page_feed_url);
+		update_post_meta($post_id, "rss_page_feed_url", $rss_page_feed_url ) or add_post_meta($post_id, "rss_page_feed_url", $rss_page_feed_url, true);
 		
 /*		if ( !update_post_meta($post_id, "rss_page_feed_url", ( (isset($_POST["rss_page_feed_url"]) && !empty($_POST["rss_page_feed_url"]) ) ? $_POST["rss_page_feed_url"] : '' ) ) ) {
 			//add_post_meta($post_id, "rss_page_feed_url", $_POST["rss_page_feed_url"]);

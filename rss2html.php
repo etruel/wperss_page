@@ -37,7 +37,7 @@ $TEMPLATEfilename = $rss_page_template;
 
 if (function_exists('FeedForAll_rss2html_AddIdentity') === FALSE) {
   Function FeedForAll_rss2html_AddIdentity($itemString) {
-    return '';
+    return $itemString . '';
   }
 }
 
@@ -938,6 +938,7 @@ if (!isset($_REQUEST['buildURL'])) {
           if (FeedForAll_parseExtensions() === TRUE) {
             $item = FeedForAll_parseExtensions_replaceInItem($currentItem, $item);
           }
+
           return FeedForAll_rss2html_AddIdentity($item);
         }
       }
